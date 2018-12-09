@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 @Builder
 @Getter
@@ -21,8 +22,17 @@ public class BeanMethod {
     public Object invoke(Update messageDate)
             throws InvocationTargetException, IllegalAccessException {
 
-        Object methodResult = method.invoke(object, messageDate);
-        return methodResult;
+        if (isMethodHasModelParam(method)) {
+            Model requestModel = new Model();
+            return method.invoke(object, messageDate, requestModel);
+        }
+        return method.invoke(object, messageDate);
+    }
+
+
+    private boolean isMethodHasModelParam(Method method) {
+        return Arrays.stream(method.getParameterTypes())
+                .anyMatch(aClass -> aClass == Model.class);
     }
 
 }

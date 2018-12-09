@@ -59,7 +59,7 @@ public class HandlerMethodMapping implements InitializingBean, ApplicationContex
 
     private boolean isMethodHasUpdateParam(Method method) {
         Parameter[] methodParam = method.getParameters();
-        return methodParam.length == 1 && methodParam[0].getType() == Update.class;
+        return methodParam[0].getType() == Update.class;
     }
 
     private RequestMetaData prepareRequestMetaData(BotMapping botMappingAnnotation) {

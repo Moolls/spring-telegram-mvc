@@ -8,12 +8,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboa
 import ru.moolls.telemvc.annotation.BotController;
 import ru.moolls.telemvc.annotation.BotMapping;
 import ru.moolls.telemvc.entity.MethodType;
+import ru.moolls.telemvc.entity.Model;
 
 @BotController
 public class TestController {
 
     @BotMapping(msgPath = "/start", methodType = MethodType.MSG)
-    public String tetx(Update update) {
+    public String tetx(Update update, Model model) {
         return "Hi, guys!!!";
     }
 
