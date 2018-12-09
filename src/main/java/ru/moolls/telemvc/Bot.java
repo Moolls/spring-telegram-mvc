@@ -28,7 +28,6 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        log.error(botProperties.toString());
         try {
             BeanMethod beanMethod = handlingMethodResolver.resolveHandlingMethod(update);
             Object methodResult = beanMethod.invoke(update);
