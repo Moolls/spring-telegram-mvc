@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 @EnableConfigurationProperties(BotProperties.class)
 public class Bot extends TelegramLongPollingBot {
 
-    private final HandlingMethodResolver handlingMethodResolver;
+    private final HandlerMethodMapping handlerMethodMapping;
 
     private final MethodReturnedHandler methodReturnedHandler;
 
@@ -29,7 +29,7 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            BeanMethod beanMethod = handlingMethodResolver.resolveHandlingMethod(update);
+            BeanMethod beanMethod = handlerMethodMapping.resolveHandlingMethod(update);
             Object methodResult = beanMethod.invoke(update);
             BotApiMethod resultMethod = methodReturnedHandler.handleResult(update, methodResult);
             sendApiMethod(resultMethod);
