@@ -12,25 +12,25 @@ import ru.moolls.telemvc.entity.MethodType;
 @BotController
 public class TestController {
 
-  @BotMapping(msgPath = "/start", methodType = MethodType.MSG)
-  public String tetx(Update update) {
-    return "Hi, guys!!!";
-  }
+    @BotMapping(msgPath = "/start", methodType = MethodType.MSG)
+    public String tetx(Update update) {
+        return "Hi, guys!!!";
+    }
 
-  @BotMapping(msgPath = "/testReply", methodType = MethodType.MSG)
-  public BotApiMethod test2(Update update) {
-    SendMessage sendMessageMethod = new SendMessage();
+    @BotMapping(msgPath = "/testReply", methodType = MethodType.MSG)
+    public BotApiMethod test2(Update update) {
+        SendMessage sendMessageMethod = new SendMessage();
 
-    sendMessageMethod.setChatId(update.getMessage().getChatId());
-    sendMessageMethod.setText("Reply here");
-    sendMessageMethod.setReplyMarkup(new ForceReplyKeyboard());
+        sendMessageMethod.setChatId(update.getMessage().getChatId());
+        sendMessageMethod.setText("Reply here");
+        sendMessageMethod.setReplyMarkup(new ForceReplyKeyboard());
 
-    return sendMessageMethod;
-  }
+        return sendMessageMethod;
+    }
 
-  @BotMapping(replyOn = "Reply here", methodType = MethodType.REPLY)
-  public String testReply(Update update) {
-    return "Reply is done!!!";
-  }
+    @BotMapping(replyOn = "Reply here", methodType = MethodType.REPLY)
+    public String testReply(Update update) {
+        return "Reply is done!!!";
+    }
 
 }
