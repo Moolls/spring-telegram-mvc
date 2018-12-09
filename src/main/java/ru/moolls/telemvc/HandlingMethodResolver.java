@@ -12,7 +12,6 @@ import java.util.HashMap;
 @Component
 public class HandlingMethodResolver {
 
-
     private HashMap<RequestMetaData, BeanMethod> requestMethodMap = new HashMap<>();
 
     @Autowired

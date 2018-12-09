@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class MethodReturnedHandler {
 
     public BotApiMethod handleResult(Update update, Object methodResult) {
-
         if (methodResult instanceof BotApiMethod) {
             return (BotApiMethod) methodResult;
         } else if (methodResult instanceof String) {
@@ -17,7 +16,6 @@ public class MethodReturnedHandler {
         }
         return null;
     }
-
 
     private SendMessage prepareSendMessageMethod(String msg, Update update) {
         SendMessage sendMessage = new SendMessage();

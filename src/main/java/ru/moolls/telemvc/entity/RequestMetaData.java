@@ -11,8 +11,8 @@ import lombok.Setter;
 @EqualsAndHashCode(of = {"msgPath", "methodType", "replyOn", "methodType"})
 public class RequestMetaData {
 
-    private String msgPath;
-    private String callbackPath;
-    private String replyOn;
-    private MethodType methodType;
+  private String msgPath;
+  private String callbackPath;
+  private String replyOn;
+  private MethodType methodType;
 }
