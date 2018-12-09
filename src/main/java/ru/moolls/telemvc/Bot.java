@@ -1,6 +1,8 @@
 package ru.moolls.telemvc;
 
 import java.lang.reflect.InvocationTargetException;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,21 +16,18 @@ import ru.moolls.telemvc.entity.BeanMethod;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
 
+  private final HandlingMethodResolver handlingMethodResolver;
 
-  @Autowired
-  private HandlingMethodResolver handlingMethodResolver;
-
-  @Autowired
-  private MethodReturnedHandler methodReturnedHandler;
+  private final MethodReturnedHandler methodReturnedHandler;
 
   @Value("${bot.name}")
   private String botName;
 
   @Value("${bot.token}")
   private String botToken;
-
 
   @Override
   public void onUpdateReceived(Update update) {
