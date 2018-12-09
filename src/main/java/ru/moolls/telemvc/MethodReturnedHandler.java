@@ -10,14 +10,12 @@ public class MethodReturnedHandler {
 
   public BotApiMethod handleResult(Update update, Object methodResult) {
 
-    BotApiMethod botApiMethod = null;
     if (methodResult instanceof BotApiMethod) {
-      botApiMethod = (BotApiMethod) methodResult;
+      return (BotApiMethod) methodResult;
     } else if (methodResult instanceof String) {
-      botApiMethod = prepareSendMessageMethod((String) methodResult, update);
+      return prepareSendMessageMethod((String) methodResult, update);
     }
-
-    return botApiMethod;
+    return null;
   }
 
 

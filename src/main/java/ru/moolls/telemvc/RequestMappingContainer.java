@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,6 +15,7 @@ import ru.moolls.telemvc.annotation.BotMapping;
 import ru.moolls.telemvc.entity.BeanMethod;
 import ru.moolls.telemvc.entity.MethodType;
 import ru.moolls.telemvc.entity.RequestMetaData;
+import ru.moolls.telemvc.exception.IncompatibleMethod;
 
 
 @Component
@@ -30,13 +32,13 @@ public class RequestMappingContainer implements ApplicationListener<ApplicationR
     ConfigurableApplicationContext ctx = event.getApplicationContext();
     Map<String, Object> beansWithAnnotation = ctx.getBeansWithAnnotation(BotController.class);
 
-    for (String s : beansWithAnnotation.keySet()) {
-      Object bean = beansWithAnnotation.get(s);
+    for (Entry<String, Object> requestObjectEntry : beansWithAnnotation.entrySet()) {
+      Object bean = requestObjectEntry.getValue();
       for (Method method : bean.getClass().getMethods()) {
         if (method.isAnnotationPresent(BotMapping.class)) {
           BotMapping botMappingAnnotation = method.getAnnotation(BotMapping.class);
           if (!isMethodHasUpdateParam(method)) {
-            throw new RuntimeException(
+            throw new IncompatibleMethod(
                 "Method " + method.getName() + " doesn't have Update param.");
           }
           RequestMetaData requestMapping = prepareRequestMetaData(botMappingAnnotation);

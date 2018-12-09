@@ -32,7 +32,7 @@ public class HandlingMethodResolver {
     String callbackPath = "";
     String replyOn = "";
 
-    MethodType methodType = handleMethodReturnValue(messageData);
+    MethodType methodType = resolveRequestType(messageData);
     if (methodType == MethodType.MSG) {
       msg = messageData.getMessage().getText();
     } else if (methodType == MethodType.CALLBACK) {
@@ -51,7 +51,7 @@ public class HandlingMethodResolver {
     return requestMapping;
   }
 
-  private MethodType handleMethodReturnValue(Update messageData) {
+  private MethodType resolveRequestType(Update messageData) {
     if (messageData.hasCallbackQuery()) {
       return MethodType.CALLBACK;
     } else if (messageData.getMessage().isReply()) {

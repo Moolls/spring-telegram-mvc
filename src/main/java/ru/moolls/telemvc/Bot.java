@@ -1,6 +1,7 @@
 package ru.moolls.telemvc;
 
 import java.lang.reflect.InvocationTargetException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import ru.moolls.telemvc.entity.BeanMethod;
 
 
 @Component
+@Slf4j
 public class Bot extends TelegramLongPollingBot {
 
 
@@ -36,7 +38,7 @@ public class Bot extends TelegramLongPollingBot {
       BotApiMethod resultMethod = methodReturnedHandler.handleResult(update, methodResult);
       sendApiMethod(resultMethod);
     } catch (InvocationTargetException | IllegalAccessException | TelegramApiException e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
     }
   }
 
